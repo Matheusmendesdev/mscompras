@@ -1,5 +1,8 @@
 package com.api.mscompras.controller.exceptionHandler;
 
+import lombok.Getter;
+
+@Getter
 public enum ProblemType {
     DADOS_INVALIDOS("/dados-invalidos", "Dados inválidos"),
     ERRO_DE_SISTEMA("/erro-de-sistema", "Erro de sistema"),
