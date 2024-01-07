@@ -34,6 +34,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @ControllerAdvice
@@ -92,7 +93,7 @@ public class MsCompraExceptionHandler extends ResponseEntityExceptionHandler {
                 .collect(Collectors.toList());
 
         Problem problem = createProblemBuilder(status, problemType, detail)
-                .userMessage(detail)
+                .message(detail)
                 .objects(problemObjects)
                 .build();
 
@@ -108,7 +109,7 @@ public class MsCompraExceptionHandler extends ResponseEntityExceptionHandler {
         log.error(ex.getMessage());
 
         Problem problem = createProblemBuilder(status, problemType, detail)
-                .userMessage(detail)
+                .message(detail)
                 .build();
 
         return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
@@ -123,7 +124,7 @@ public class MsCompraExceptionHandler extends ResponseEntityExceptionHandler {
                 ex.getRequestURL());
 
         Problem problem = createProblemBuilder(status, problemType, detail)
-                .userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
+                .message(MSG_ERRO_GENERICA_USUARIO_FINAL)
                 .build();
 
         return handleExceptionInternal(ex, problem, headers, status, request);
@@ -152,7 +153,7 @@ public class MsCompraExceptionHandler extends ResponseEntityExceptionHandler {
                 ex.getName(), ex.getValue(), Objects.requireNonNull(ex.getRequiredType()).getSimpleName());
 
         Problem problem = createProblemBuilder(status, problemType, detail)
-                .userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
+                .message(MSG_ERRO_GENERICA_USUARIO_FINAL)
                 .build();
 
         return handleExceptionInternal(ex, problem, headers, status, request);
@@ -174,7 +175,7 @@ public class MsCompraExceptionHandler extends ResponseEntityExceptionHandler {
         String detail = "O corpo da requisição está inválido. Verifique erro de sintaxe.";
 
         Problem problem = createProblemBuilder(status, problemType, detail)
-                .userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
+                .message(MSG_ERRO_GENERICA_USUARIO_FINAL)
                 .build();
 
         return handleExceptionInternal(ex, problem, headers, status, request);
@@ -190,7 +191,7 @@ public class MsCompraExceptionHandler extends ResponseEntityExceptionHandler {
                 + "Corrija ou remova essa propriedade e tente novamente.", path);
 
         Problem problem = createProblemBuilder(status, problemType, detail)
-                .userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
+                .message(MSG_ERRO_GENERICA_USUARIO_FINAL)
                 .build();
 
         return handleExceptionInternal(ex, problem, headers, status, request);
@@ -207,7 +208,7 @@ public class MsCompraExceptionHandler extends ResponseEntityExceptionHandler {
                 path, ex.getValue(), ex.getTargetType().getSimpleName());
 
         Problem problem = createProblemBuilder(status, problemType, detail)
-                .userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
+                .message(MSG_ERRO_GENERICA_USUARIO_FINAL)
                 .build();
 
         return handleExceptionInternal(ex, problem, headers, status, request);
@@ -222,7 +223,7 @@ public class MsCompraExceptionHandler extends ResponseEntityExceptionHandler {
         String detail = ex.getMessage();
 
         Problem problem = createProblemBuilder(status, problemType, detail)
-                .userMessage(detail)
+                .message(detail)
                 .build();
 
         return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
@@ -236,7 +237,7 @@ public class MsCompraExceptionHandler extends ResponseEntityExceptionHandler {
         String detail = ex.getMessage();
 
         Problem problem = createProblemBuilder(status, problemType, detail)
-                .userMessage(detail)
+                .message(detail)
                 .build();
 
         return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
@@ -251,14 +252,14 @@ public class MsCompraExceptionHandler extends ResponseEntityExceptionHandler {
                     .timestamp(OffsetDateTime.now())
                     .title(status.getReasonPhrase())
                     .status(status.value())
-                    .userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
+                    .message(MSG_ERRO_GENERICA_USUARIO_FINAL)
                     .build();
         } else if (body instanceof String) {
             body = Problem.builder()
                     .timestamp(OffsetDateTime.now())
                     .title((String) body)
                     .status(status.value())
-                    .userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
+                    .message(MSG_ERRO_GENERICA_USUARIO_FINAL)
                     .build();
         }
 
